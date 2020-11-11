@@ -31,10 +31,6 @@ public:
   void ui_callback(UiWindow* window);
 
   void onByteReceived(uint8_t _byte) override;
-  void onEndTransaction() override {
-    SPISlavePeripheral::onEndTransaction();
-  };
-  void onResponseSent() override;
   void onRequestedDataReceived(uint8_t token, uint8_t* _data, size_t count) override;
 
   int32_t currentArg = 0;

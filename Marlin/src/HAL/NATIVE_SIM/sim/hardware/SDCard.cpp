@@ -26,6 +26,7 @@ void SDCard::onRequestedDataReceived(uint8_t token, uint8_t* _data, size_t count
   SPISlavePeripheral::onRequestedDataReceived(token, _data, count);
 
   uint8_t crc = 0;
+  // it should be handled per command, but no other call uses 5 bytes, so it's ok and simpler here
   if (count == 5) {
     currentArg = 0;
     for (int i = 0; i < 4; i++) {
@@ -38,7 +39,7 @@ void SDCard::onRequestedDataReceived(uint8_t token, uint8_t* _data, size_t count
   // Marlin SD2Card keep the CS LOW for multiple commands, so I need to manually clear the token, to receive next.
   clearCurrentToken();
 
-  printf("CMD: %d, currentArg: %d, crc: %d, count: %d\n", token, currentArg, crc, count);
+  // printf("CMD: %d, currentArg: %d, crc: %d, count: %d\n", token, currentArg, crc, count);
   switch (token) {
     case CMD0:
       setResponse(R1_IDLE_STATE);
@@ -54,7 +55,6 @@ void SDCard::onRequestedDataReceived(uint8_t token, uint8_t* _data, size_t count
         memset(buf, 0xAA, 4);
         setResponse(buf, 4);
       }
-
       break;
     case CMD58:
       buf[0] = R1_READY_STATE;
@@ -93,8 +93,4 @@ void SDCard::onRequestedDataReceived(uint8_t token, uint8_t* _data, size_t count
       setResponse(buf, 2);
       break;
   }
-}
-
-void SDCard::onResponseSent() {
-  SPISlavePeripheral::onResponseSent();
 }
