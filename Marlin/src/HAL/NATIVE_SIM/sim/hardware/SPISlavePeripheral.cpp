@@ -73,8 +73,9 @@ void SPISlavePeripheral::onByteSent(uint8_t _byte) {
     responseData++;
     responseDataSize--;
   }
-  else if (hasDataToSend) {
-    onResponseSent();
+  else {
+    if (hasDataToSend) onResponseSent();
+    outgoing_byte = 0xFF;
   }
   outgoing_bit_count = 0;
 }
