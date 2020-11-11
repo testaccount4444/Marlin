@@ -35,15 +35,9 @@ public:
     SPISlavePeripheral::onEndTransaction();
   };
   void onResponseSent() override;
+  void onRequestedDataReceived(uint8_t token, uint8_t* _data, size_t count) override;
 
-  int8_t currentCommand = -1;
-  int32_t arg = 0;
-  int32_t byteCount = 0;
-  uint8_t crc = 0;
+  int32_t currentArg = 0;
   uint8_t buf[1024];
   FILE *fp = nullptr;
-  uint16_t waitForBytes = 0;
-  uint8_t commandWaitingForData = -1;
-  uint32_t argWaitingForData = -1;
-  uint16_t bufferIndex = 0;
 };
