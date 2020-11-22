@@ -182,6 +182,7 @@ public:
   void gpio_event_handler(GpioEvent& event);
   void update();
   void destroy();
+  void on_position_update(LinearAxis&);
 
   void ui_viewport_callback(UiWindow*);
   void ui_info_callback(UiWindow*);
