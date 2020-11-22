@@ -572,6 +572,16 @@ void Visualisation::ui_info_callback(UiWindow* w) {
   uint64_t seconds = remainder / (Kernel::TimeControl::ONE_BILLION);
   remainder = remainder % (Kernel::TimeControl::ONE_BILLION);
   ImGui::Text("%02ld:%02ld:%02ld.%09ld", hours, mins, seconds, remainder); //TODO: work around cross platform format string differences
+  ImGui::Text("Marlin/Sim: X: %0.3f / %0.3f = %0.3f, Y: %0.3f / %0.3f = %0.3f, Z: %0.3f / %0.3f = %0.3f",
+              NATIVE_TO_LOGICAL(current_position[X_AXIS], X_AXIS),
+              effector_pos.x,
+              NATIVE_TO_LOGICAL(current_position[X_AXIS], X_AXIS) - effector_pos.x,
+              NATIVE_TO_LOGICAL(current_position[Y_AXIS], Y_AXIS),
+              effector_pos.z * -1.0f,
+              NATIVE_TO_LOGICAL(current_position[Y_AXIS], Y_AXIS) - (effector_pos.z * -1.0f),
+              NATIVE_TO_LOGICAL(current_position[Z_AXIS], Z_AXIS),
+              effector_pos.y,
+              NATIVE_TO_LOGICAL(current_position[Z_AXIS], Z_AXIS) - effector_pos.y);
   ImGui::Text("ISR timing error: %ldns", Kernel::isr_timing_error.load());
 
   // // lock the toggle button until the mode has been changed as it may be blocked
