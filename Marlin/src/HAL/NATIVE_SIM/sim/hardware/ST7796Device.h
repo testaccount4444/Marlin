@@ -33,7 +33,7 @@ public:
   void onByteReceived(uint8_t _byte) override;
   void onEndTransaction() override;
 
-  static constexpr uint32_t width = 480, height = 320;
+  static constexpr uint32_t width = TFT_WIDTH, height = TFT_HEIGHT;
 
   pin_type dc_pin, beeper_pin, enc1_pin, enc2_pin, enc_but_pin, back_pin, kill_pin;
 
