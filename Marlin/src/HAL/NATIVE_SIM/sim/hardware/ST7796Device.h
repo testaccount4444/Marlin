@@ -10,6 +10,13 @@
 #include "SPISlavePeripheral.h"
 #include "XPT2046Device.h"
 
+#ifndef TFT_WIDTH
+  #define TFT_WIDTH 480
+#endif
+#ifndef TFT_HEIGHT
+  #define TFT_HEIGHT 320
+#endif
+
 class ST7796Device: public SPISlavePeripheral {
 public:
   //TODO: support encoder in the TFT
